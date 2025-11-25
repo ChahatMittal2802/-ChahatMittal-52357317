@@ -1,1 +1,1 @@
-storage_account_name = "storageacctresource1"
+storage_account_name = "storageacctresource1chahatmitlta"
