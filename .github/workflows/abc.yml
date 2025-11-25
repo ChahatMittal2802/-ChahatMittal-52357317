@@ -14,30 +14,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4   # ✅ Updated to v4
 
+      # Step 2: Setup Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.5.7
 
+      # Step 3: Azure Login using Service Principal credentials stored in GitHub Secrets
       - name: Azure Login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      # Step 4: Initialize Terraform
       - name: Init Terraform
         run: terraform init
 
+      # Step 5: Plan Terraform
       - name: Plan Terraform
         run: terraform plan -out=tfplan
 
+      # Step 6: Apply Terraform
       - name: Apply Terraform
         run: terraform apply -auto-approve tfplan
 
+      # Step 7: Upload Terraform Plan as Artifact
       - name: Upload Plan Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4   # ✅ Updated to v4
         with:
           name: terraform-plan
           path: tfplan
